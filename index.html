@@ -4,219 +4,412 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marbell Music</title>
-  <meta name="description" content="Marbell Music - oficjalna strona. Muzyka. Klimat. Emocje." />
+  <meta name="description" content="Marbell Music — muzyka, vibe, emocje. Oficjalna strona." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg1:#05060a;
+      --bg2:#0b1020;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --line:rgba(255,255,255,.12);
+      --glass:rgba(255,255,255,.06);
+      --accent1:#7c3aed; /* purple */
+      --accent2:#22d3ee; /* cyan */
+      --accent3:#f97316; /* orange */
     }
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #1a0b2e, #070710 70%);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      padding: 20px;
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(124,58,237,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 80%, rgba(34,211,238,.12), transparent 55%),
+        radial-gradient(700px 500px at 50% 110%, rgba(249,115,22,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow:hidden;
     }
 
-    /* floating glow blobs */
-    .blob {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.5;
-      animation: float 12s infinite alternate ease-in-out;
+    /* subtle film grain */
+    .grain{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.12;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
     }
 
-    .blob.one {
-      background: #ff00ff;
-      top: -200px;
-      left: -200px;
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
     }
 
-    .blob.two {
-      background: #00ffff;
-      bottom: -200px;
-      right: -200px;
-      animation-delay: 3s;
-    }
-
-    .blob.three {
-      background: #ff9900;
-      bottom: 10%;
-      left: 10%;
-      width: 350px;
-      height: 350px;
-      animation-delay: 5s;
-      opacity: 0.35;
-    }
-
-    @keyframes float {
-      from { transform: translate(0px, 0px) scale(1); }
-      to { transform: translate(80px, 60px) scale(1.15); }
-    }
-
-    /* main card */
-    .card {
-      position: relative;
-      max-width: 680px;
-      width: 100%;
-      padding: 50px 35px;
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+    .card{
+      width:100%;
+      max-width:980px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 40px 90px rgba(0,0,0,.65);
       backdrop-filter: blur(12px);
-      box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.6);
-      text-align: center;
-      z-index: 2;
-      animation: fadeIn 1.2s ease-out;
+      position:relative;
+      overflow:hidden;
+      padding:44px 40px 34px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0px); }
+    /* bass pulse glow */
+    .pulse{
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 50% 45%, rgba(124,58,237,.22), transparent 40%),
+                  radial-gradient(circle at 55% 55%, rgba(34,211,238,.14), transparent 42%);
+      animation: pulse 3.2s ease-in-out infinite;
+      pointer-events:none;
+      filter: blur(12px);
+    }
+    @keyframes pulse{
+      0%,100%{ transform:scale(1); opacity:.55; }
+      50%{ transform:scale(1.06); opacity:.80; }
     }
 
-    h1 {
-      font-size: 52px;
-      letter-spacing: 3px;
-      font-weight: 800;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 12px;
+    /* top header */
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
     }
 
-    .subtitle {
-      font-size: 15px;
-      opacity: 0.75;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
+    .brand h1{
+      margin:0;
+      font-size:44px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:800;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    .line {
-      width: 120px;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.2);
-      margin: 0 auto 30px auto;
-      border-radius: 99px;
+    .tag{
+      margin-top:10px;
+      font-size:12px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:var(--muted);
     }
 
-    p {
-      font-size: 17px;
-      line-height: 1.7;
-      opacity: 0.88;
-      margin-bottom: 35px;
+    /* faux player — WIDENED */
+    .player{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:14px 14px;
+
+      /* było ~260px — teraz szerzej */
+      min-width:360px;
+      max-width:460px;
+      width:100%;
     }
 
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 15px;
+    .track{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:10px;
     }
 
-    .btn {
-      text-decoration: none;
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      color: white;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      transition: 0.25s ease-in-out;
-      position: relative;
-      overflow: hidden;
+    /* TITLE — allow full text */
+    .track .title{
+      font-size:13px;
+      letter-spacing:1px;
+      color:rgba(255,255,255,.88);
+
+      /* było nowrap + ellipsis — teraz łagodniej */
+      white-space:normal;           /* pozwala zawijać */
+      overflow:visible;
+      text-overflow:clip;
+
+      /* szersze pole na napis */
+      max-width:280px;
+      line-height:1.25;
     }
 
-    .btn::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
-      transition: 0.5s;
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-shrink:0; /* żeby przyciski się nie ściskały */
     }
 
-    .btn:hover::before {
-      left: 100%;
+    .dotbtn{
+      width:34px;height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      display:grid;
+      place-items:center;
+      cursor:default;
+      user-select:none;
     }
 
-    .btn:hover {
-      transform: scale(1.03);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      background: rgba(255, 255, 255, 0.12);
+    /* tiny icons */
+    .icon{
+      width:12px;height:12px;
+      opacity:.85;
+      background:rgba(255,255,255,.9);
+      mask-size:contain;
+      mask-repeat:no-repeat;
+      mask-position:center;
+      -webkit-mask-size:contain;
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-position:center;
+    }
+    .i-prev{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E"); }
+    .i-play{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5v14l11-7L8 5Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5v14l11-7L8 5Z'/%3E%3C/svg%3E"); }
+    .i-next{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); }
+
+    .bar{
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      position:relative;
+    }
+    .bar::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      width:38%;
+      background:linear-gradient(90deg, rgba(34,211,238,.75), rgba(124,58,237,.75));
+      border-radius:999px;
+      box-shadow:0 0 18px rgba(34,211,238,.20);
     }
 
-    footer {
-      margin-top: 40px;
-      font-size: 13px;
-      opacity: 0.55;
-      letter-spacing: 1px;
+    .divider{
+      margin:26px 0 18px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      position:relative;
+      z-index:2;
     }
 
-    /* small glow effect */
-    .glow {
-      position: absolute;
-      inset: 0;
-      border-radius: 26px;
-      box-shadow: 0px 0px 40px rgba(255, 0, 255, 0.18),
-                  0px 0px 60px rgba(0, 255, 255, 0.12);
-      pointer-events: none;
-      z-index: -1;
+    /* waveform */
+    .wave{
+      display:flex;
+      gap:8px;
+      align-items:flex-end;
+      height:54px;
+      margin:14px 0 22px;
+      position:relative;
+      z-index:2;
+      opacity:.9;
     }
 
-    @media (max-width: 520px) {
-      h1 { font-size: 38px; }
-      p { font-size: 15px; }
-      .card { padding: 40px 22px; }
+    .wave span{
+      width:10px;
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(34,211,238,.9), rgba(124,58,237,.85));
+      animation: wave 1.2s infinite ease-in-out;
+      box-shadow:0 0 16px rgba(124,58,237,.18);
+    }
+
+    .wave span:nth-child(2){ animation-delay:.1s }
+    .wave span:nth-child(3){ animation-delay:.2s }
+    .wave span:nth-child(4){ animation-delay:.3s }
+    .wave span:nth-child(5){ animation-delay:.4s }
+    .wave span:nth-child(6){ animation-delay:.5s }
+    .wave span:nth-child(7){ animation-delay:.25s }
+    .wave span:nth-child(8){ animation-delay:.15s }
+    .wave span:nth-child(9){ animation-delay:.35s }
+    .wave span:nth-child(10){ animation-delay:.45s }
+    .wave span:nth-child(11){ animation-delay:.22s }
+    .wave span:nth-child(12){ animation-delay:.42s }
+
+    @keyframes wave{
+      0%,100%{ height:12px; opacity:.55 }
+      50%{ height:54px; opacity:1 }
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap:26px;
+      align-items:start;
+      position:relative;
+      z-index:2;
+    }
+
+    .lead{
+      margin:0;
+      font-size:16px;
+      line-height:1.75;
+      color:rgba(255,255,255,.88);
+    }
+    .lead b{ color:rgba(255,255,255,.98); }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .panelTitle{
+      margin:0 0 12px;
+      font-size:12px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      text-decoration:none;
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      transition: transform .15s ease, background .15s ease, border .15s ease;
+      font-weight:600;
+    }
+
+    .btn small{
+      color:var(--muted);
+      font-weight:400;
+      letter-spacing:1px;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(34,211,238,.35);
+    }
+
+    footer{
+      margin-top:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      position:relative;
+      z-index:2;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns:1fr; }
+
+      /* player can be full width on mobile */
+      .player{ max-width:none; min-width:unset; width:100%; }
+
+      .brand h1{ font-size:38px; }
+      .card{ padding:38px 22px 28px; }
+
+      /* still keep title readable */
+      .track .title{ max-width: 70vw; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .pulse, .wave span{ animation:none; }
     }
   </style>
 </head>
 
 <body>
-  <!-- background blobs -->
-  <div class="blob one"></div>
-  <div class="blob two"></div>
-  <div class="blob three"></div>
+  <div class="grain"></div>
 
-  <!-- main card -->
-  <div class="card">
-    <div class="glow"></div>
+  <div class="wrap">
+    <main class="card">
+      <div class="pulse"></div>
 
-    <h1>Marbell</h1>
-    <div class="subtitle">music • atmosphere • emotion</div>
-    <div class="line"></div>
+      <header class="top">
+        <div class="brand">
+          <h1>Marbell Music</h1>
+          <div class="tag">new releases • live • visuals</div>
+        </div>
 
-    <p>
-      Witaj w świecie <b>Marbell Music</b>.<br />
-      Tu powstaje przestrzeń dla dźwięku, światła i historii.<br /><br />
-      Strona jest w budowie — ale muzyka już żyje.
-    </p>
+        <div class="player" aria-label="visual player (dekoracyjny)">
+          <div class="track">
+            <div class="title">PLAYING: “The Long Game”</div>
+            <div class="controls">
+              <div class="dotbtn" title="Prev"><div class="icon i-prev"></div></div>
+              <div class="dotbtn" title="Play"><div class="icon i-play"></div></div>
+              <div class="dotbtn" title="Next"><div class="icon i-next"></div></div>
+            </div>
+          </div>
+          <div class="bar" aria-hidden="true"></div>
+        </div>
+      </header>
 
-    <div class="links">
-      <a class="btn" href="https://www.instagram.com/martabiallka/" target="_blank">Ekipa</a>
-      <a class="btn" href="https://www.youtube.com/c/filipmizia" target="_blank">Artyści</a>
-      <a class="btn" href="https://www.instagram.com/miziafilip/" target="_blank">Polecane</a>
-      <a class="btn" href="mailto:info@marbellmusic.com">Kontakt: info@marbellmusic.com</a>
-    </div>
+      <div class="divider"></div>
 
-    <footer>
-      © 2026 Marbell Music — all rights reserved
-    </footer>
+      <div class="wave" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <section class="grid">
+        <p class="lead">
+          Witaj w świecie <b>Marbell Music</b> — tu spotykają się dźwięk, obraz i emocja.
+          Strona jest w budowie, ale możesz już odpalić preview i złapać nasz vibe w sieci.
+          <br /><br />
+          Jeśli chcesz współpracy / koncertu / publikacji — napisz.
+        </p>
+
+        <aside class="panel">
+          <p class="panelTitle">Links</p>
+          <div class="links">
+            <a class="btn" href="https://www.instagram.com/martabiallka/" target="_blank" rel="noopener">
+              Ekipa <small>Instagram</small>
+            </a>
+            <a class="btn" href="https://www.youtube.com/c/filipmizia" target="_blank" rel="noopener">
+              Artyści <small>YouTube</small>
+            </a>
+            <a class="btn" href="https://www.instagram.com/miziafilip/" target="_blank" rel="noopener">
+              Polecane <small>updates</small>
+            </a>
+            <a class="btn" href="mailto:info@marbellmusic.com">
+              info@marbellmusic.com <small>mail</small>
+            </a>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <div>© 2026 Marbell Music</div>
+        <div>Sound • Light • Story</div>
+      </footer>
+    </main>
   </div>
 </body>
 </html>
