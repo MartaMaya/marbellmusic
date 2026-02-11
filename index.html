@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marbell Music</title>
+  <meta name="description" content="Marbell Music - oficjalna strona. Muzyka. Klimat. Emocje." />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1a0b2e, #070710 70%);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    /* floating glow blobs */
+    .blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      animation: float 12s infinite alternate ease-in-out;
+    }
+
+    .blob.one {
+      background: #ff00ff;
+      top: -200px;
+      left: -200px;
+    }
+
+    .blob.two {
+      background: #00ffff;
+      bottom: -200px;
+      right: -200px;
+      animation-delay: 3s;
+    }
+
+    .blob.three {
+      background: #ff9900;
+      bottom: 10%;
+      left: 10%;
+      width: 350px;
+      height: 350px;
+      animation-delay: 5s;
+      opacity: 0.35;
+    }
+
+    @keyframes float {
+      from { transform: translate(0px, 0px) scale(1); }
+      to { transform: translate(80px, 60px) scale(1.15); }
+    }
+
+    /* main card */
+    .card {
+      position: relative;
+      max-width: 680px;
+      width: 100%;
+      padding: 50px 35px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(12px);
+      box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      z-index: 2;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0px); }
+    }
+
+    h1 {
+      font-size: 52px;
+      letter-spacing: 3px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      opacity: 0.75;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    .line {
+      width: 120px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 0 auto 30px auto;
+      border-radius: 99px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: 0.88;
+      margin-bottom: 35px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      transition: 0.25s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      opacity: 0.55;
+      letter-spacing: 1px;
+    }
+
+    /* small glow effect */
+    .glow {
+      position: absolute;
+      inset: 0;
+      border-radius: 26px;
+      box-shadow: 0px 0px 40px rgba(255, 0, 255, 0.18),
+                  0px 0px 60px rgba(0, 255, 255, 0.12);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @media (max-width: 520px) {
+      h1 { font-size: 38px; }
+      p { font-size: 15px; }
+      .card { padding: 40px 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- background blobs -->
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+
+  <!-- main card -->
+  <div class="card">
+    <div class="glow"></div>
+
+    <h1>Marbell</h1>
+    <div class="subtitle">music • atmosphere • emotion</div>
+    <div class="line"></div>
+
+    <p>
+      Witaj w świecie <b>Marbell Music</b>.<br />
+      Tu powstaje przestrzeń dla dźwięku, światła i historii.<br /><br />
+      Strona jest w budowie — ale muzyka już żyje.
+    </p>
+
+    <div class="links">
+      <a class="btn" href="https://instagram.com/" target="_blank">Instagram</a>
+      <a class="btn" href="https://youtube.com/" target="_blank">YouTube</a>
+      <a class="btn" href="https://open.spotify.com/" target="_blank">Spotify</a>
+      <a class="btn" href="mailto:kontakt@marbellmusic.com">Kontakt: kontakt@marbellmusic.com</a>
+    </div>
+
+    <footer>
+      © 2026 Marbell Music — all rights reserved
+    </footer>
+  </div>
+</body>
+</html>
