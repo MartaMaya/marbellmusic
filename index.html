@@ -35,7 +35,9 @@
         radial-gradient(900px 600px at 85% 80%, rgba(34,211,238,.12), transparent 55%),
         radial-gradient(700px 500px at 50% 110%, rgba(249,115,22,.10), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
-      overflow:hidden;
+      overflow-x:hidden;
+	  overflow-y:auto;
+	  -webkit-overflow-scrolling: touch;
     }
 
     /* subtle film grain */
@@ -49,11 +51,14 @@
     }
 
     .wrap{
-      min-height:100%;
+      /* zamiast centrowania "na sztywno" - pozwalamy rosnąć w dół */
+      min-height:100vh;
       display:flex;
-      align-items:center;
+      align-items:flex-start;   /* było center */
       justify-content:center;
       padding:28px;
+      position:relative;
+      z-index:1;
     }
 
     .card{
