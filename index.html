@@ -56,7 +56,7 @@
       display:flex;
       align-items:flex-start;   /* było center */
       justify-content:center;
-      padding:28px;
+      padding: clamp(18px, 4vw, 28px);
       position:relative;
       z-index:1;
     }
@@ -73,7 +73,7 @@
       overflow-x: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding:44px 40px 34px;
+      padding: clamp(26px, 5vw, 44px) clamp(22px, 5vw, 40px) clamp(22px, 4vw, 34px);
     }
 
     /* bass pulse glow */
@@ -119,6 +119,7 @@
       align-items:center;
       gap:14px;
       margin-bottom:10px;
+      flex-wrap:wrap;
     }
 
     .tag{
@@ -154,7 +155,7 @@
       padding:14px 14px;
 
       /* było ~260px — teraz szerzej */
-      min-width:360px;
+      min-width:0;
       max-width:460px;
       width:100%;
     }
@@ -222,9 +223,7 @@
       border-radius:999px;
       background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.10);
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow:hidden;
       position:relative;
     }
     .bar::after{
@@ -280,6 +279,24 @@
     @keyframes wave{
       0%,100%{ height:12px; opacity:.55 }
       50%{ height:54px; opacity:1 }
+    }
+
+
+    /* Wave + Player row (responsive) */
+    .mediaRow{
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+    .mediaRow .wave{
+      flex: 1 1 260px;
+      margin: 14px 0 0;
+    }
+    .mediaRow .player{
+      flex: 1 1 340px;
     }
 
     .grid{
@@ -363,11 +380,14 @@
     @media (max-width: 860px){
       .grid{ grid-template-columns:1fr; }
 
+      .mediaRow{ flex-direction:column; align-items:stretch; }
+      .mediaRow .wave{ justify-content:center; }
+
       /* player can be full width on mobile */
       .player{ max-width:none; min-width:unset; width:100%; }
 
       .brand h1{ font-size:38px; }
-      .card{ padding:38px 22px 28px; }
+      .card{ padding:28px 18px 22px; }
 
       /* still keep title readable */
       .track .title{ max-width: 70vw; }
@@ -402,7 +422,7 @@
 
       <div class="divider"></div>
 
-	  <div class="brand_name">
+	  <div class="mediaRow">
 		<div class="wave" aria-hidden="true">
 			<span></span><span></span><span></span><span></span><span></span><span></span>
 			<span></span><span></span><span></span><span></span><span></span><span></span>
@@ -456,4 +476,3 @@
   </div>
 </body>
 </html>
-
