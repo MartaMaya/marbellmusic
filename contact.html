@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Marbell Music</title>
+  <meta name="description" content="Contact Marbell Music for bookings and music promotion." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#05060a;
+      --bg2:#0b1020;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --line:rgba(255,255,255,.12);
+      --glass:rgba(255,255,255,.06);
+      --accent1:#7c3aed; /* purple */
+      --accent2:#22d3ee; /* cyan */
+      --accent3:#f97316; /* orange */
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 15% 20%, rgba(124,58,237,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 80%, rgba(34,211,238,.12), transparent 55%),
+        radial-gradient(700px 500px at 50% 110%, rgba(249,115,22,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+	  overflow-y:auto;
+	  -webkit-overflow-scrolling: touch;
+    }
+
+    /* subtle film grain */
+    .grain{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.12;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+    }
+
+    .wrap{
+      /* zamiast centrowania "na sztywno" - pozwalamy rosnąć w dół */
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;   /* było center */
+      justify-content:center;
+      padding:28px;
+      position:relative;
+      z-index:1;
+    }
+
+    .card{
+      width:100%;
+      max-width:980px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 40px 90px rgba(0,0,0,.65);
+      backdrop-filter: blur(12px);
+      position:relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding:44px 40px 34px;
+    }
+
+    /* bass pulse glow */
+    .pulse{
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 50% 45%, rgba(124,58,237,.22), transparent 40%),
+                  radial-gradient(circle at 55% 55%, rgba(34,211,238,.14), transparent 42%);
+      animation: pulse 3.2s ease-in-out infinite;
+      pointer-events:none;
+      filter: blur(12px);
+    }
+    @keyframes pulse{
+      0%,100%{ transform:scale(1); opacity:.55; }
+      50%{ transform:scale(1.06); opacity:.80; }
+    }
+
+    /* top header */
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:2;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:44px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:800;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .tag{
+      margin-top:10px;
+      font-size:12px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .logo{
+      width: 120px;
+      height: auto;
+      display:block;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 16px rgba(34,211,238,.25)) drop-shadow(0 0 18px rgba(124,58,237,.20));
+    }
+
+    .slogan{
+      margin-top: 8px;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+    }
+
+
+    /* faux player — WIDENED */
+    .player{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:14px 14px;
+
+      /* było ~260px — teraz szerzej */
+      min-width:360px;
+      max-width:460px;
+      width:100%;
+    }
+
+    .track{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:10px;
+    }
+
+    /* TITLE — allow full text */
+    .track .title{
+      font-size:13px;
+      letter-spacing:1px;
+      color:rgba(255,255,255,.88);
+
+      /* było nowrap + ellipsis — teraz łagodniej */
+      white-space:normal;           /* pozwala zawijać */
+      overflow:visible;
+      text-overflow:clip;
+
+      /* szersze pole na napis */
+      max-width:280px;
+      line-height:1.25;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      flex-shrink:0; /* żeby przyciski się nie ściskały */
+    }
+
+    .dotbtn{
+      width:34px;height:34px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      display:grid;
+      place-items:center;
+      cursor:default;
+      user-select:none;
+    }
+
+    /* tiny icons */
+    .icon{
+      width:12px;height:12px;
+      opacity:.85;
+      background:rgba(255,255,255,.9);
+      mask-size:contain;
+      mask-repeat:no-repeat;
+      mask-position:center;
+      -webkit-mask-size:contain;
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-position:center;
+    }
+    .i-prev{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E"); }
+    .i-play{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5v14l11-7L8 5Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5v14l11-7L8 5Z'/%3E%3C/svg%3E"); }
+    .i-next{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); }
+
+    .bar{
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      position:relative;
+    }
+    .bar::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      width:38%;
+      background:linear-gradient(90deg, rgba(34,211,238,.75), rgba(124,58,237,.75));
+      border-radius:999px;
+      box-shadow:0 0 18px rgba(34,211,238,.20);
+    }
+
+    .divider{
+      margin:26px 0 18px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      position:relative;
+      z-index:2;
+    }
+
+    /* waveform */
+    .wave{
+      display:flex;
+      gap:8px;
+      align-items:flex-end;
+      height:54px;
+      margin:14px 0 22px;
+      position:relative;
+      z-index:2;
+      opacity:.9;
+    }
+
+    .wave span{
+      width:10px;
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(34,211,238,.9), rgba(124,58,237,.85));
+      animation: wave 1.2s infinite ease-in-out;
+      box-shadow:0 0 16px rgba(124,58,237,.18);
+    }
+
+    .wave span:nth-child(2){ animation-delay:.1s }
+    .wave span:nth-child(3){ animation-delay:.2s }
+    .wave span:nth-child(4){ animation-delay:.3s }
+    .wave span:nth-child(5){ animation-delay:.4s }
+    .wave span:nth-child(6){ animation-delay:.5s }
+    .wave span:nth-child(7){ animation-delay:.25s }
+    .wave span:nth-child(8){ animation-delay:.15s }
+    .wave span:nth-child(9){ animation-delay:.35s }
+    .wave span:nth-child(10){ animation-delay:.45s }
+    .wave span:nth-child(11){ animation-delay:.22s }
+    .wave span:nth-child(12){ animation-delay:.42s }
+
+    @keyframes wave{
+      0%,100%{ height:12px; opacity:.55 }
+      50%{ height:54px; opacity:1 }
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap:26px;
+      align-items:start;
+      position:relative;
+      z-index:2;
+    }
+
+    .lead{
+      margin:0;
+      font-size:16px;
+      line-height:1.75;
+      color:rgba(255,255,255,.88);
+    }
+    .lead b{ color:rgba(255,255,255,.98); }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .panelTitle{
+      margin:0 0 12px;
+      font-size:12px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .links{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      text-decoration:none;
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      transition: transform .15s ease, background .15s ease, border .15s ease;
+      font-weight:600;
+    }
+
+    .btn small{
+      color:var(--muted);
+      font-weight:400;
+      letter-spacing:1px;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(34,211,238,.35);
+    }
+
+    footer{
+      margin-top:26px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:12px;
+      color:rgba(255,255,255,.55);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      position:relative;
+      z-index:2;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns:1fr; }
+
+      /* player can be full width on mobile */
+      .player{ max-width:none; min-width:unset; width:100%; }
+
+      .brand h1{ font-size:38px; }
+      .card{ padding:38px 22px 28px; }
+
+      /* still keep title readable */
+      .track .title{ max-width: 70vw; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .pulse, .wave span{ animation:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <div class="wrap">
+    <main class="card">
+      <div class="pulse"></div>
+
+      <header class="top">
+        <div class="brand">
+          <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
+          <h1>Marbell Music</h1>
+          <div class="slogan">Unlocking Sonic Superpowers</div>
+          <div class="tag">Artist Management • Music Promotion • Booking</div>
+        </div>
+
+        <div class="player" aria-label="contact quick actions">
+          <div class="track" style="margin-bottom:0;">
+            <div class="title">Contact</div>
+            <div class="controls">
+              <a class="btn" href="index.html" style="padding:10px 12px; border-radius:12px; font-weight:700;">
+                Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <section class="grid">
+        <p class="lead">
+          <b>Bookings & Music Promotion</b><br/>
+          Reach out to Marbell Music for artist bookings, release strategy, promo campaigns,
+          media outreach and brand partnerships. We work selectively and build long‑term momentum.
+          <br /><br />
+          Tell us who you are, what you’re releasing (or booking), and your timeline — we’ll get back to you.
+        </p>
+
+        <aside class="panel">
+          <p class="panelTitle">Get in Touch</p>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div class="btn" style="justify-content:flex-start; gap:12px;">
+              <span style="font-weight:800;">Phone</span>
+              <small><small style="font-size:12px;">+48 607060666</small></small>
+            </div>
+            <div class="btn" style="justify-content:flex-start; gap:12px;">
+              <span style="font-weight:800;">Email</span>
+              <small><small style="font-size:12px;">info@marbellmusic.com</small></small>
+            </div>
+            <div style="margin-top:6px; color:rgba(255,255,255,.70); line-height:1.7; font-size:14px;">
+              For the fastest response, include links to your music and socials, plus a short note about
+              your goals (booking / promotion / management). We’ll reply with next steps and availability.
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <footer>
+        <div>© 2026 Marbell Music</div>
+        <div>Bookings • Promotion • Management</div>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
