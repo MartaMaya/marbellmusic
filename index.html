@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Marbell Music</title>
   <meta name="description" content="Marbell Music — artist management & music promotion. Unlocking Sonic Superpowers." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg1:#05060a;
       --bg2:#0b1020;
       --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.68);
+      --muted:rgba(255,255,255,.64);
       --line:rgba(255,255,255,.12);
       --glass:rgba(255,255,255,.06);
-      --accent1:#7c3aed; /* purple */
-      --accent2:#22d3ee; /* cyan */
-      --accent3:#f97316; /* orange */
+      --accent1:#7c3aed;
+      --accent2:#22d3ee;
+      --accent3:#f97316;
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    html, body{ height:100%; }
 
     body{
       margin:0;
@@ -35,9 +35,9 @@
         radial-gradient(900px 600px at 85% 80%, rgba(34,211,238,.12), transparent 55%),
         radial-gradient(700px 500px at 50% 110%, rgba(249,115,22,.10), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg2));
-      overflow-x:hidden;
-	  overflow-y:auto;
-	  -webkit-overflow-scrolling: touch;
+      overflow-x:hidden;       /* ✅ no horizontal cut on mobile */
+      overflow-y:auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* subtle film grain */
@@ -48,15 +48,15 @@
       opacity:.12;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       mix-blend-mode:overlay;
+      z-index:0;
     }
 
     .wrap{
-      /* zamiast centrowania "na sztywno" - pozwalamy rosnąć w dół */
       min-height:100vh;
       display:flex;
-      align-items:flex-start;   /* było center */
       justify-content:center;
-      padding: clamp(18px, 4vw, 28px);
+      align-items:flex-start; /* ✅ allow natural height, scroll */
+      padding: clamp(18px, 4vw, 30px);
       position:relative;
       z-index:1;
     }
@@ -70,139 +70,134 @@
       box-shadow:0 40px 90px rgba(0,0,0,.65);
       backdrop-filter: blur(12px);
       position:relative;
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: clamp(26px, 5vw, 44px) clamp(22px, 5vw, 40px) clamp(22px, 4vw, 34px);
+      overflow:hidden;
+      padding: clamp(22px, 4vw, 44px);
     }
 
     /* bass pulse glow */
     .pulse{
       position:absolute;
       inset:-40%;
-      background: radial-gradient(circle at 50% 45%, rgba(124,58,237,.22), transparent 40%),
-                  radial-gradient(circle at 55% 55%, rgba(34,211,238,.14), transparent 42%);
+      background:
+        radial-gradient(circle at 50% 45%, rgba(124,58,237,.22), transparent 40%),
+        radial-gradient(circle at 55% 55%, rgba(34,211,238,.14), transparent 42%);
       animation: pulse 3.2s ease-in-out infinite;
       pointer-events:none;
       filter: blur(12px);
+      z-index:0;
     }
     @keyframes pulse{
       0%,100%{ transform:scale(1); opacity:.55; }
       50%{ transform:scale(1.06); opacity:.80; }
     }
 
-    /* top header */
-    .top{
+    /* ensure content above pulse */
+    .content{ position:relative; z-index:2; }
+
+    /* BRAND row */
+    .brand{
       display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-      position:relative;
-      z-index:2;
+      align-items:center;
+      gap:14px;
+      margin-bottom: 10px;
     }
 
-    .brand h1{
+    .logo{
+      height:48px;
+      width:auto;
+      flex: 0 0 auto;
+      filter:
+        drop-shadow(0 0 10px rgba(34,211,238,.45))
+        drop-shadow(0 0 18px rgba(124,58,237,.35));
+    }
+
+    h1{
       margin:0;
-      font-size:44px;
+      font-size: clamp(30px, 4.5vw, 44px);
       letter-spacing:2px;
       text-transform:uppercase;
       font-weight:800;
       background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
-    }
-	
-	/* 🔥 BRAND (logo + text in one line) */
-    .brand_name{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      margin-bottom:10px;
-      flex-wrap:wrap;
+      line-height:1.05;
     }
 
-    .tag{
-      margin-top:10px;
-	  margin-bottom:30px;
+    .tagline{
       font-size:12px;
       letter-spacing:4px;
       text-transform:uppercase;
       color:var(--muted);
-    }
-    .logo{
-      width: 120px;
-      height: auto;
-      display:block;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 0 16px rgba(34,211,238,.25)) drop-shadow(0 0 18px rgba(124,58,237,.20));
+      margin-bottom: 18px;
     }
 
-    .slogan{
-      margin-top: 8px;
-      font-size: 14px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.78);
+    /* MEDIA ROW (wave + player) */
+    .mediaRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap; /* ✅ prevents cutting */
+      margin-bottom: 18px;
     }
 
-
-    /* faux player — WIDENED */
+    /* FAKE PLAYER (tight height) */
     .player{
       border:1px solid rgba(255,255,255,.12);
       background:rgba(0,0,0,.18);
       border-radius:18px;
-      padding:14px 14px;
 
-      /* było ~260px — teraz szerzej */
-      min-width:0;
-      max-width:460px;
-      width:100%;
+      /* ✅ tight vertical padding */
+      padding: 12px 14px;
+
+      /* ✅ responsive width; no min-height */
+      width: 100%;
+      max-width: 460px;
+      min-width: 0;
+
+      height: auto;
     }
 
     .track{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
-      gap:14px;
-      margin-bottom:10px;
+      gap:12px;
+
+      /* ✅ reduce extra vertical space */
+      margin-bottom:8px;
     }
 
-    /* TITLE — allow full text */
-    .track .title{
+    .title{
       font-size:13px;
       letter-spacing:1px;
       color:rgba(255,255,255,.88);
 
-      /* było nowrap + ellipsis — teraz łagodniej */
-      white-space:normal;           /* pozwala zawijać */
+      /* ✅ no cutoff on mobile */
+      white-space:normal;
       overflow:visible;
       text-overflow:clip;
-
-      /* szersze pole na napis */
-      max-width:280px;
-      line-height:1.25;
+      line-height:1.2;
+      max-width: 280px;
     }
 
     .controls{
       display:flex;
       gap:10px;
-      align-items:flex-start;
-      flex-shrink:0; /* żeby przyciski się nie ściskały */
+      align-items:center;
+      flex-shrink:0;
     }
 
     .dotbtn{
-      width:34px;height:34px;
+      width:32px;height:32px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.06);
       display:grid;
       place-items:center;
-      cursor:default;
       user-select:none;
     }
 
-    /* tiny icons */
     .icon{
       width:12px;height:12px;
       opacity:.85;
@@ -219,7 +214,8 @@
     .i-next{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); }
 
     .bar{
-      height:8px;
+      /* ✅ slim bar */
+      height:6px;
       border-radius:999px;
       background:rgba(255,255,255,.08);
       border:1px solid rgba(255,255,255,.10);
@@ -236,39 +232,39 @@
       box-shadow:0 0 18px rgba(34,211,238,.20);
     }
 
-    .divider{
-      margin:26px 0 18px;
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
-      position:relative;
-      z-index:2;
-    }
-
-    /* waveform */
+    /* WAVE (tight height — no fixed container height) */
     .wave{
       display:flex;
       gap:8px;
       align-items:flex-end;
-      height:54px;
-      margin:14px 0 22px;
-      position:relative;
-      z-index:2;
-      opacity:.9;
+
+      /* ✅ no fixed height, tight padding */
+      height:auto;
+      padding: 6px 0;
+
+      /* keep it compact */
+      margin: 0;
+      opacity:.92;
+
+      /* allow wrap on tiny screens if needed */
+      flex-wrap:nowrap;
+      overflow:hidden;
     }
 
     .wave span{
       width:10px;
       border-radius:999px;
       background:linear-gradient(180deg, rgba(34,211,238,.9), rgba(124,58,237,.85));
-      animation: wave 1.2s infinite ease-in-out;
+      height:12px; /* base height, animation grows bars */
       box-shadow:0 0 16px rgba(124,58,237,.18);
+      animation: wave 1.2s infinite ease-in-out;
     }
 
-    .wave span:nth-child(2){ animation-delay:.1s }
-    .wave span:nth-child(3){ animation-delay:.2s }
-    .wave span:nth-child(4){ animation-delay:.3s }
-    .wave span:nth-child(5){ animation-delay:.4s }
-    .wave span:nth-child(6){ animation-delay:.5s }
+    .wave span:nth-child(2){ animation-delay:.10s }
+    .wave span:nth-child(3){ animation-delay:.20s }
+    .wave span:nth-child(4){ animation-delay:.30s }
+    .wave span:nth-child(5){ animation-delay:.40s }
+    .wave span:nth-child(6){ animation-delay:.50s }
     .wave span:nth-child(7){ animation-delay:.25s }
     .wave span:nth-child(8){ animation-delay:.15s }
     .wave span:nth-child(9){ animation-delay:.35s }
@@ -278,25 +274,13 @@
 
     @keyframes wave{
       0%,100%{ height:12px; opacity:.55 }
-      50%{ height:54px; opacity:1 }
+      50%{ height:48px; opacity:1 } /* ✅ slightly lower than 54 to stay compact */
     }
 
-
-    /* Wave + Player row (responsive) */
-    .mediaRow{
-      display:flex;
-      align-items:flex-start;
-      gap:18px;
-      flex-wrap:wrap;
-      position:relative;
-      z-index:2;
-    }
-    .mediaRow .wave{
-      flex: 1 1 260px;
-      margin: 14px 0 0;
-    }
-    .mediaRow .player{
-      flex: 1 1 340px;
+    .divider{
+      margin: 14px 0 16px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
     }
 
     .grid{
@@ -304,8 +288,6 @@
       grid-template-columns: 1.25fr 0.75fr;
       gap:26px;
       align-items:start;
-      position:relative;
-      z-index:2;
     }
 
     .lead{
@@ -345,7 +327,7 @@
       border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.05);
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
       transition: transform .15s ease, background .15s ease, border .15s ease;
       font-weight:600;
@@ -364,7 +346,7 @@
     }
 
     footer{
-      margin-top:26px;
+      margin-top:20px;
       display:flex;
       justify-content:space-between;
       gap:12px;
@@ -373,24 +355,19 @@
       color:rgba(255,255,255,.55);
       letter-spacing:2px;
       text-transform:uppercase;
-      position:relative;
-      z-index:2;
     }
 
+    /* ✅ mobile layout */
     @media (max-width: 860px){
       .grid{ grid-template-columns:1fr; }
-
       .mediaRow{ flex-direction:column; align-items:stretch; }
-      .mediaRow .wave{ justify-content:center; }
 
-      /* player can be full width on mobile */
-      .player{ max-width:none; min-width:unset; width:100%; }
+      .player{
+        max-width:none;
+        width:100%;
+      }
 
-      .brand h1{ font-size:38px; }
-      .card{ padding:28px 18px 22px; }
-
-      /* still keep title readable */
-      .track .title{ max-width: 70vw; }
+      .title{ max-width: 72vw; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -406,72 +383,69 @@
     <main class="card">
       <div class="pulse"></div>
 
-      <header class="top">
+      <div class="content">
+        <!-- BRAND -->
         <div class="brand">
-			<div class="tag">Artist Management • Music Promotion • Booking</div>
-		    <div class="brand_name">
-			  <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo">
-			  <h1>Marbell Music</h1>
-			</div>
-		  
-          <div class="slogan">Unlocking Sonic Superpowers</div>
-          
+          <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
+          <h1>Marbell Music</h1>
         </div>
 
-      </header>
+        <div class="tagline">Unlocking Sonic Superpowers</div>
 
-      <div class="divider"></div>
-
-	  <div class="mediaRow">
-		<div class="wave" aria-hidden="true">
-			<span></span><span></span><span></span><span></span><span></span><span></span>
-			<span></span><span></span><span></span><span></span><span></span><span></span>
-		</div>
-		<div class="player" aria-label="visual player (dekoracyjny)">
-			  <div class="track">
-				<div class="title">PLAYING: “The Long Way”</div>
-				<div class="controls">
-				  <div class="dotbtn" title="Prev"><div class="icon i-prev"></div></div>
-				  <div class="dotbtn" title="Play"><div class="icon i-play"></div></div>
-				  <div class="dotbtn" title="Next"><div class="icon i-next"></div></div>
-				</div>
-			  </div>
-			  <div class="bar" aria-hidden="true"></div>
-			</div>
-	  </div>
-
-      <section class="grid">
-        <p class="lead">
-          <b>Marbell Music</b> is an artist management and music promotion company shaping modern sound and building artists with global potential. <br />
-          We help artists build a strong identity, grow real audiences, and turn releases into momentum —
-          from strategy and content to PR, partnerships and bookings.
-          <br /><br />
-          If you’re looking for a team that plays the long game and delivers with taste, let’s talk.
-        </p>
-
-        <aside class="panel">
-          <p class="panelTitle">Links</p>
-          <div class="links">
-            <a class="btn" href="https://linktr.ee/miziafilip" target="_blank" rel="noopener">
-              Promoted artists
-            </a>
-            <a class="btn" target="_blank" rel="noopener">
-              The team
-            </a>
-            <a class="btn" target="_blank" rel="noopener">
-              About us
-            </a>
-            <a class="btn" href="contact.html">
-              Contact <small><small>booking & promo</small></small>
-            </a>
+        <!-- MEDIA: wave + playing widget -->
+        <section class="mediaRow">
+          <div class="wave" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
-        </aside>
-      </section>
 
-      <footer>
-        <div>© 2026 Marbell Music</div>
-        <div>Sound • Strategy • Growth</div>
-      </footer>
+          <div class="player" aria-label="visual player (decorative)">
+            <div class="track">
+              <div class="title">PLAYING: “The Long Way”</div>
+              <div class="controls">
+                <div class="dotbtn" title="Prev"><div class="icon i-prev"></div></div>
+                <div class="dotbtn" title="Play"><div class="icon i-play"></div></div>
+                <div class="dotbtn" title="Next"><div class="icon i-next"></div></div>
+              </div>
+            </div>
+            <div class="bar" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- CONTENT -->
+        <section class="grid">
+          <p class="lead">
+            Marbell Music is an artist management and music promotion company shaping modern sound and building artists with global potential.
+            <br><br>
+            We connect vision, strategy and execution — unlocking opportunities, strengthening positioning, and delivering campaigns that move audiences.
+          </p>
+
+          <aside class="panel">
+            <p class="panelTitle">Links</p>
+            <div class="links">
+              <a class="btn" href="https://instagram.com/" target="_blank" rel="noopener">
+                Instagram <small>updates</small>
+              </a>
+              <a class="btn" href="https://youtube.com/" target="_blank" rel="noopener">
+                YouTube <small>videos</small>
+              </a>
+              <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">
+                Spotify <small>releases</small>
+              </a>
+              <a class="btn" href="contact.html">
+                Contact <small>booking & promotion</small>
+              </a>
+            </div>
+          </aside>
+        </section>
+
+        <footer>
+          <div>© 2026 Marbell Music</div>
+          <div>Sound • Light • Story</div>
+        </footer>
+      </div>
     </main>
   </div>
 </body>
