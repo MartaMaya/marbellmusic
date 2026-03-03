@@ -113,8 +113,17 @@
       -webkit-text-fill-color:transparent;
     }
 
+	/* 🔥 BRAND (logo + text in one line) */
+    .brand_name{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:10px;
+    }
+
     .tag{
       margin-top:10px;
+	  margin-bottom:30px;
       font-size:12px;
       letter-spacing:4px;
       text-transform:uppercase;
@@ -379,22 +388,13 @@
 
       <header class="top">
         <div class="brand">
-          <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
-          <h1>Marbell Music</h1>
-          <div class="slogan">Unlocking Sonic Superpowers</div>
-          <div class="tag">Artist Management • Music Promotion • Booking</div>
+			<div class="tag">Artist Management • Music Promotion • Booking</div>
+		    <div class="brand_name">
+			  <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo">
+			  <h1>Marbell Music</h1>
+			</div>
         </div>
 
-        <div class="player" aria-label="contact quick actions">
-          <div class="track" style="margin-bottom:0;">
-            <div class="title">Contact</div>
-            <div class="controls">
-              <a class="btn" href="index.html" style="padding:10px 12px; border-radius:12px; font-weight:700;">
-                Home
-              </a>
-            </div>
-          </div>
-        </div>
       </header>
 
       <div class="divider"></div>
