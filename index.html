@@ -95,16 +95,43 @@
       display:flex;
       align-items:center;
       gap:14px;
-      margin-bottom: 10px;
+	  margin-bottom: 20px;
     }
 
     .logo{
-      height:48px;
+      height:46px;
       width:auto;
       flex: 0 0 auto;
       filter:
         drop-shadow(0 0 10px rgba(34,211,238,.45))
         drop-shadow(0 0 18px rgba(124,58,237,.35));
+    }
+
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+    }
+
+    .brandText h1{
+      margin:0;
+      font-size: clamp(26px, 4vw, 38px);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:800;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      line-height:1.05;
+      white-space:nowrap;
+    }
+
+    .tagline{
+      font-size:12px;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:var(--muted);
     }
 
     h1{
@@ -117,14 +144,6 @@
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       line-height:1.05;
-    }
-
-    .tagline{
-      font-size:12px;
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom: 18px;
     }
 
     .mediaRow{
@@ -363,12 +382,13 @@
       <div class="pulse"></div>
 
       <div class="content">
-        <div class="brand">
-          <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
-          <h1>Marbell Music</h1>
-        </div>
-
-        <div class="tagline">Unlocking Sonic Superpowers</div>
+          <div class="brand">
+            <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
+            <div class="brandText">
+              <h1>Marbell Music</h1>
+              <div class="tagline">Unlocking Sonic Superpowers</div>
+            </div>
+          </div>
 
         <section class="mediaRow">
           <div class="wave" aria-hidden="true">
@@ -400,20 +420,20 @@
 
           <aside class="panel">
             <p class="panelTitle">Links</p>
-            <div class="links">
-              <a class="btn" href="https://instagram.com/" target="_blank" rel="noopener">
-                Instagram <small>updates</small>
-              </a>
-              <a class="btn" href="https://youtube.com/" target="_blank" rel="noopener">
-                YouTube <small>videos</small>
-              </a>
-              <a class="btn" href="https://open.spotify.com/" target="_blank" rel="noopener">
-                Spotify <small>releases</small>
-              </a>
-              <a class="btn" href="contact.html">
-                Contact <small>booking & promotion</small>
-              </a>
-            </div>
+				<div class="links">
+					<a class="btn" href="https://linktr.ee/miziafilip" target="_blank" rel="noopener">
+					  Promoted artists
+					</a>
+					<a class="btn" target="_blank" rel="noopener">
+					  The team
+					</a>
+					<a class="btn" target="_blank" rel="noopener">
+					  About us
+					</a>
+					<a class="btn" href="contact.html">
+					  Contact <small><small>booking & promo</small></small>
+					</a>
+			  </div>
           </aside>
         </section>
 
