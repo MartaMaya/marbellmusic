@@ -54,14 +54,14 @@
       display:flex;
       justify-content:center;
       align-items:flex-start;
-      padding: clamp(18px, 4vw, 30px);
+      padding:clamp(18px, 4vw, 30px);
       position:relative;
       z-index:1;
     }
 
     .card{
       width:100%;
-      max-width:980px;
+      max-width:1040px; /* a touch wider so brand text stays on one line */
       border-radius:28px;
       background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
       border:1px solid rgba(255,255,255,.12);
@@ -69,7 +69,7 @@
       backdrop-filter: blur(12px);
       position:relative;
       overflow:hidden;
-      padding: clamp(22px, 4vw, 44px);
+      padding:clamp(22px, 4vw, 44px);
     }
 
     .pulse{
@@ -78,7 +78,7 @@
       background:
         radial-gradient(circle at 50% 45%, rgba(124,58,237,.22), transparent 40%),
         radial-gradient(circle at 55% 55%, rgba(34,211,238,.14), transparent 42%);
-      animation: pulse 3.2s ease-in-out infinite;
+      animation:pulse 3.2s ease-in-out infinite;
       pointer-events:none;
       filter: blur(12px);
       z-index:0;
@@ -90,48 +90,51 @@
 
     .content{ position:relative; z-index:2; }
 
-    .topbar{
+    .heroTop{
       display:flex;
-      align-items:center;
+      align-items:stretch;
       justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-bottom: 18px;
+      gap:22px;
+      margin-bottom:18px;
     }
-
-    .brand{
+	
+	.brandBlock{
+      flex:1 1 auto;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+	  padding:7px 0px;
+    }
+	
+	.brand{
       display:flex;
       align-items:center;
       gap:14px;
+      margin-bottom:10px;
+      min-width:0;
     }
-
-    .logo{
-      height:46px;
+	
+	.logo{
+      height:48px;
       width:auto;
-      flex: 0 0 auto;
+      flex:0 0 auto;
       filter:
         drop-shadow(0 0 10px rgba(34,211,238,.45))
         drop-shadow(0 0 18px rgba(124,58,237,.35));
     }
 
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-
-    .brandText h1{
+    h1{
       margin:0;
-      font-size: clamp(26px, 4vw, 38px);
+      font-size:clamp(30px, 4vw, 44px);
       letter-spacing:2px;
       text-transform:uppercase;
       font-weight:800;
-      background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+      background:linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       line-height:1.05;
-      white-space:nowrap;
+      white-space:nowrap; /* keep one line on desktop */
     }
 
     .tagline{
@@ -166,7 +169,7 @@
     }
 
     .divider{
-      margin: 14px 0 18px;
+      margin:14px 0 18px;
       height:1px;
       background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
     }
@@ -263,7 +266,14 @@
 
     @media (max-width: 860px){
       .hero{ grid-template-columns:1fr; }
-      .brandText h1{ white-space:normal; }
+	  .heroTop{
+        flex-direction:column;
+        align-items:stretch;
+      }
+	  
+	  h1{
+        white-space:normal; /* allow wrapping only when stacked layout */
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -280,20 +290,16 @@
       <div class="pulse"></div>
 
       <div class="content">
-        <!-- top bar -->
-        <header class="topbar">
-          <div class="brand">
-            <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
-            <div class="brandText">
+		<section class="heroTop">
+          <div class="brandBlock">
+            <div class="brand">
+              <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
               <h1>Marbell Music</h1>
-              <div class="tagline">Unlocking Sonic Superpowers</div>
             </div>
+            <div class="tagline">Unlocking Sonic Superpowers</div>
           </div>
 
-          <nav class="nav" aria-label="Primary">
-            <a href="index.html">Home</a>
-          </nav>
-        </header>
+        </section>
 
         <div class="divider"></div>
 
