@@ -17,10 +17,10 @@
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.64);
       --line:rgba(255,255,255,.12);
-      --glass:rgba(255,255,255,.06);
       --accent1:#7c3aed;
       --accent2:#22d3ee;
       --accent3:#f97316;
+      --side-width: 360px; /* width matched to right panel */
     }
 
     *{ box-sizing:border-box; }
@@ -55,14 +55,14 @@
       display:flex;
       justify-content:center;
       align-items:flex-start;
-      padding: clamp(18px, 4vw, 30px);
+      padding:clamp(18px, 4vw, 30px);
       position:relative;
       z-index:1;
     }
 
     .card{
       width:100%;
-      max-width:980px;
+      max-width:1040px; /* a touch wider so brand text stays on one line */
       border-radius:28px;
       background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
       border:1px solid rgba(255,255,255,.12);
@@ -70,7 +70,7 @@
       backdrop-filter: blur(12px);
       position:relative;
       overflow:hidden;
-      padding: clamp(22px, 4vw, 44px);
+      padding:clamp(22px, 4vw, 44px);
     }
 
     .pulse{
@@ -79,7 +79,7 @@
       background:
         radial-gradient(circle at 50% 45%, rgba(124,58,237,.22), transparent 40%),
         radial-gradient(circle at 55% 55%, rgba(34,211,238,.14), transparent 42%);
-      animation: pulse 3.2s ease-in-out infinite;
+      animation:pulse 3.2s ease-in-out infinite;
       pointer-events:none;
       filter: blur(12px);
       z-index:0;
@@ -89,51 +89,56 @@
       50%{ transform:scale(1.06); opacity:.80; }
     }
 
-    .content{ position:relative; z-index:2; }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      margin-bottom: 18px;
+    .content{
+      position:relative;
+      z-index:2;
     }
-	
+
+    /* top: brand block + audio player */
+    .heroTop{
+      display:flex;
+      align-items:stretch;
+      justify-content:space-between;
+      gap:22px;
+      margin-bottom:18px;
+    }
+
+    .brandBlock{
+      flex:1 1 auto;
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
     .brand{
       display:flex;
       align-items:center;
       gap:14px;
-	  margin-bottom: 20px;
+      margin-bottom:10px;
+      min-width:0;
     }
 
     .logo{
-      height:46px;
+      height:48px;
       width:auto;
-      flex: 0 0 auto;
+      flex:0 0 auto;
       filter:
         drop-shadow(0 0 10px rgba(34,211,238,.45))
         drop-shadow(0 0 18px rgba(124,58,237,.35));
     }
 
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-
-    .brandText h1{
+    h1{
       margin:0;
-      font-size: clamp(26px, 4vw, 38px);
+      font-size:clamp(30px, 4vw, 44px);
       letter-spacing:2px;
       text-transform:uppercase;
       font-weight:800;
-      background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+      background:linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       line-height:1.05;
-      white-space:nowrap;
+      white-space:nowrap; /* keep one line on desktop */
     }
 
     .tagline{
@@ -143,89 +148,95 @@
       color:var(--muted);
     }
 
-    h1{
-      margin:0;
-      font-size: clamp(30px, 4.5vw, 44px);
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-weight:800;
-      background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      line-height:1.05;
-    }
+    /* AUDIO PLAYER = panel width */
+    .audioWidget{
+      flex:0 0 var(--side-width);
+      width:var(--side-width);
+      max-width:var(--side-width);
+      min-width:var(--side-width);
 
-    .mediaRow{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom: 18px;
-    }
-
-    .player{
       border:1px solid rgba(255,255,255,.12);
       background:rgba(0,0,0,.18);
-      border-radius:18px;
-      padding: 12px 14px;
-      width: 100%;
-      max-width: 460px;
-      min-width: 0;
-      height:auto;
-    }
-
-    .track{
+      border-radius:20px;
+      padding:14px 16px;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:8px;
+      gap:14px;
+      align-self:stretch;
     }
 
-    .title{
+    .audioMain{
+      min-width:0;
+      flex:1 1 auto;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .audioTitle{
       font-size:13px;
       letter-spacing:1px;
-      color:rgba(255,255,255,.88);
-      white-space:normal;
-      overflow:visible;
-      text-overflow:clip;
+      color:rgba(255,255,255,.92);
       line-height:1.2;
-      max-width: 280px;
+      margin-bottom:10px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
-    .controls{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-shrink:0;
-    }
-
-    .dotbtn{
-      width:32px;height:32px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
+    /* wave spans full width of audio main */
+    .wave{
       display:grid;
-      place-items:center;
-      user-select:none;
+      grid-template-columns:repeat(24, 1fr);
+      align-items:end;
+      gap:4px;
+      height:16px;
+      width:100%;
+      overflow:hidden;
+      margin-bottom:10px;
     }
 
-    .icon{
-      width:12px;height:12px;
-      opacity:.85;
-      background:rgba(255,255,255,.9);
-      mask-size:contain;
-      mask-repeat:no-repeat;
-      mask-position:center;
-      -webkit-mask-size:contain;
-      -webkit-mask-repeat:no-repeat;
-      -webkit-mask-position:center;
+    .wave span{
+      width:100%;
+      height:16px;
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(34,211,238,.95), rgba(124,58,237,.9));
+      transform-origin:bottom;
+      transform:scaleY(.32);
+      will-change:transform;
+      box-shadow:0 0 8px rgba(124,58,237,.16);
+      animation:waveScale 1.35s infinite ease-in-out;
     }
-    .i-prev{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E"); }
-    .i-play{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5v14l11-7L8 5Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8 5v14l11-7L8 5Z'/%3E%3C/svg%3E"); }
-    .i-next{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E"); }
 
+    .wave span:nth-child(2){ animation-delay:.04s; }
+    .wave span:nth-child(3){ animation-delay:.08s; }
+    .wave span:nth-child(4){ animation-delay:.12s; }
+    .wave span:nth-child(5){ animation-delay:.16s; }
+    .wave span:nth-child(6){ animation-delay:.20s; }
+    .wave span:nth-child(7){ animation-delay:.24s; }
+    .wave span:nth-child(8){ animation-delay:.28s; }
+    .wave span:nth-child(9){ animation-delay:.32s; }
+    .wave span:nth-child(10){ animation-delay:.36s; }
+    .wave span:nth-child(11){ animation-delay:.40s; }
+    .wave span:nth-child(12){ animation-delay:.44s; }
+    .wave span:nth-child(13){ animation-delay:.48s; }
+    .wave span:nth-child(14){ animation-delay:.52s; }
+    .wave span:nth-child(15){ animation-delay:.56s; }
+    .wave span:nth-child(16){ animation-delay:.60s; }
+    .wave span:nth-child(17){ animation-delay:.64s; }
+    .wave span:nth-child(18){ animation-delay:.68s; }
+    .wave span:nth-child(19){ animation-delay:.72s; }
+    .wave span:nth-child(20){ animation-delay:.76s; }
+    .wave span:nth-child(21){ animation-delay:.80s; }
+    .wave span:nth-child(22){ animation-delay:.84s; }
+    .wave span:nth-child(23){ animation-delay:.88s; }
+    .wave span:nth-child(24){ animation-delay:.92s; }
+
+    @keyframes waveScale{
+      0%,100%{ transform:scaleY(.32); opacity:.5; }
+      50%{ transform:scaleY(1); opacity:1; }
+    }
+
+    /* progress bar takes full width of audioMain */
     .bar{
       height:6px;
       border-radius:999px;
@@ -233,7 +244,10 @@
       border:1px solid rgba(255,255,255,.10);
       overflow:hidden;
       position:relative;
+      width:100%;
+      margin-top:auto;
     }
+
     .bar::after{
       content:"";
       position:absolute;
@@ -244,61 +258,64 @@
       box-shadow:0 0 18px rgba(34,211,238,.20);
     }
 
-    /* ✅ WAVE — fixed height + transform animation (NO JUMP) */
-    .wave{
+    /* controls full widget height on right */
+    .controls{
+      flex:0 0 auto;
       display:flex;
-      gap:8px;
-      align-items:flex-end;
-
-      height:48px;      /* ✅ fixed container height */
-      padding: 0;       /* tight */
-      margin: 0;
-      opacity:.92;
-
-      flex-wrap:nowrap;
-      overflow:hidden;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      align-self:stretch;
+      min-height:100%;
     }
 
-    .wave span{
-      width:10px;
+    .dotbtn{
+      width:32px;
+      height:32px;
       border-radius:999px;
-      background:linear-gradient(180deg, rgba(34,211,238,.9), rgba(124,58,237,.85));
-
-      height:48px;                 /* fill container; scale controls visual height */
-      transform-origin: bottom;    /* grow from bottom */
-      transform: scaleY(.25);      /* base */
-      will-change: transform;      /* smoother */
-
-      box-shadow:0 0 16px rgba(124,58,237,.18);
-      animation: waveScale 1.2s infinite ease-in-out;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      display:grid;
+      place-items:center;
+      user-select:none;
+      flex:0 0 auto;
     }
 
-    .wave span:nth-child(2){ animation-delay:.10s }
-    .wave span:nth-child(3){ animation-delay:.20s }
-    .wave span:nth-child(4){ animation-delay:.30s }
-    .wave span:nth-child(5){ animation-delay:.40s }
-    .wave span:nth-child(6){ animation-delay:.50s }
-    .wave span:nth-child(7){ animation-delay:.25s }
-    .wave span:nth-child(8){ animation-delay:.15s }
-    .wave span:nth-child(9){ animation-delay:.35s }
-    .wave span:nth-child(10){ animation-delay:.45s }
-    .wave span:nth-child(11){ animation-delay:.22s }
-    .wave span:nth-child(12){ animation-delay:.42s }
+    .icon{
+      width:12px;
+      height:12px;
+      opacity:.85;
+      background:rgba(255,255,255,.9);
+      mask-size:contain;
+      mask-repeat:no-repeat;
+      mask-position:center;
+      -webkit-mask-size:contain;
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-position:center;
+    }
 
-    @keyframes waveScale{
-      0%,100%{ transform: scaleY(.25); opacity:.55; }
-      50%{ transform: scaleY(1); opacity:1; }
+    .i-prev{
+      -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E");
+      mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 18V6h2v12H6Zm3-6 10 6V6L9 12Z'/%3E%3C/svg%3E");
+    }
+    .i-pause{
+      -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 5h4v14H6V5Zm8 0h4v14h-4V5Z'/%3E%3C/svg%3E");
+      mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M6 5h4v14H6V5Zm8 0h4v14h-4V5Z'/%3E%3C/svg%3E");
+    }
+    .i-next{
+      -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E");
+      mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='m15 12-10 6V6l10 6Zm1-6h2v12h-2V6Z'/%3E%3C/svg%3E");
     }
 
     .divider{
-      margin: 14px 0 16px;
+      margin:14px 0 16px;
       height:1px;
       background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
     }
 
     .grid{
       display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
+      grid-template-columns:1.25fr 0.75fr;
       gap:26px;
       align-items:start;
     }
@@ -309,9 +326,16 @@
       line-height:1.75;
       color:rgba(255,255,255,.88);
     }
-    .lead b{ color:rgba(255,255,255,.98); }
+
+    .lead b{
+      color:rgba(255,255,255,.98);
+    }
 
     .panel{
+	  flex:0 0 var(--side-width);
+      width:var(--side-width);
+      max-width:var(--side-width);
+      min-width:var(--side-width);
       border:1px solid rgba(255,255,255,.12);
       background:rgba(0,0,0,.18);
       border-radius:18px;
@@ -342,7 +366,7 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      transition: transform .15s ease, background .15s ease, border .15s ease;
+      transition:transform .15s ease, background .15s ease, border .15s ease;
       font-weight:600;
     }
 
@@ -353,7 +377,7 @@
     }
 
     .btn:hover{
-      transform: translateY(-1px);
+      transform:translateY(-1px);
       background:rgba(255,255,255,.08);
       border:1px solid rgba(34,211,238,.35);
     }
@@ -370,16 +394,78 @@
       text-transform:uppercase;
     }
 
+    /* tablet/mobile */
     @media (max-width: 860px){
-      .grid{ grid-template-columns:1fr; }
-      .mediaRow{ flex-direction:column; align-items:stretch; }
-      .player{ max-width:none; width:100%; }
-      .title{ max-width: 72vw; }
-	  .brandText h1{ white-space:normal; }
+      .heroTop{
+        flex-direction:column;
+        align-items:stretch;
+      }
+	  
+	  .panel{
+	    width:100%;
+        min-width:0;
+        max-width:none;
+        flex:1 1 auto;
+	  }
+
+      .audioWidget{
+        width:100%;
+        min-width:0;
+        max-width:none;
+        flex:1 1 auto;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        white-space:normal; /* allow wrapping only when stacked layout */
+      }
+    }
+
+    @media (max-width: 560px){
+	
+	  .panel{
+	    width:100%;
+        min-width:0;
+        max-width:none;
+        flex:1 1 auto;
+	  }
+	  
+      .audioWidget{
+        padding:12px 12px;
+        gap:12px;
+      }
+
+      .controls{
+        gap:8px;
+      }
+
+      .dotbtn{
+        width:30px;
+        height:30px;
+      }
+
+      .wave{
+        height:14px;
+        gap:3px;
+      }
+
+      .wave span{
+        height:14px;
+      }
+
+      .audioTitle{
+        white-space:normal;
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
-      .pulse, .wave span{ animation:none; }
+      .pulse,
+      .wave span{
+        animation:none;
+      }
     }
   </style>
 </head>
@@ -392,34 +478,34 @@
       <div class="pulse"></div>
 
       <div class="content">
-        <!-- top bar -->
-        <header class="topbar">
-          <div class="brand">
-            <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
-            <div class="brandText">
+        <section class="heroTop">
+          <div class="brandBlock">
+            <div class="brand">
+              <img class="logo" src="marbell_logo_neon.png" alt="Marbell logo" />
               <h1>Marbell Music</h1>
-              <div class="tagline">Unlocking Sonic Superpowers</div>
             </div>
+            <div class="tagline">Unlocking Sonic Superpowers</div>
           </div>
 
-        </header>
+          <div class="audioWidget" aria-label="visual audio player">
+            <div class="audioMain">
+              <div class="audioTitle">PLAYING: The Long Way</div>
 
-        <section class="mediaRow">
-          <div class="wave" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
-
-          <div class="player" aria-label="visual player (decorative)">
-            <div class="track">
-              <div class="title">PLAYING: “The Long Way”</div>
-              <div class="controls">
-                <div class="dotbtn" title="Prev"><div class="icon i-prev"></div></div>
-                <div class="dotbtn" title="Play"><div class="icon i-play"></div></div>
-                <div class="dotbtn" title="Next"><div class="icon i-next"></div></div>
+              <div class="wave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span><span></span>
               </div>
+
+              <div class="bar" aria-hidden="true"></div>
             </div>
-            <div class="bar" aria-hidden="true"></div>
+
+            <div class="controls" aria-hidden="true">
+              <div class="dotbtn" title="Previous track"><div class="icon i-prev"></div></div>
+              <div class="dotbtn" title="Pause"><div class="icon i-pause"></div></div>
+              <div class="dotbtn" title="Next track"><div class="icon i-next"></div></div>
+            </div>
           </div>
         </section>
 
@@ -434,20 +520,20 @@
 
           <aside class="panel">
             <p class="panelTitle">Links</p>
-				<div class="links">
-					<a class="btn" href="https://linktr.ee/miziafilip" target="_blank" rel="noopener">
-					  Promoted artists
-					</a>
-					<a class="btn" target="_blank" rel="noopener">
-					  The team
-					</a>
-					<a class="btn" target="_blank" rel="noopener">
-					  About us
-					</a>
-					<a class="btn" href="contact.html">
-					  Contact <small><small>booking & promo</small></small>
-					</a>
-			  </div>
+            <div class="links">
+              <a class="btn" href="https://linktr.ee/miziafilip" target="_blank" rel="noopener">
+                Promoted artists
+              </a>
+              <a class="btn" target="_blank" rel="noopener">
+                The team
+              </a>
+              <a class="btn" target="_blank" rel="noopener">
+                About us
+              </a>
+              <a class="btn" href="contact.html">
+                Contact <small><small>booking & promo</small></small>
+              </a>
+            </div>
           </aside>
         </section>
 
