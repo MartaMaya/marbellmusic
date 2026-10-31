@@ -1,0 +1,300 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../assets/fonts/inter-300.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../assets/fonts/inter-400.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../assets/fonts/inter-600.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(../assets/fonts/inter-800.ttf) format('truetype');
+}
+
+:root {
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --radius: 0.875rem;
+  --bg1: oklch(0.1 0.01 270);
+  --bg2: oklch(0.17 0.035 268);
+  --text: oklch(1 0 0 / 92%);
+  --muted-text: oklch(1 0 0 / 64%);
+  --line: oklch(1 0 0 / 12%);
+  --accent1: oklch(0.541 0.247 293);
+  --accent2: oklch(0.797 0.134 211.5);
+  --accent3: oklch(0.705 0.187 47.6);
+  --side-width: 360px;
+
+  --background: var(--bg1);
+  --foreground: var(--text);
+  --card: oklch(1 0 0 / 6%);
+  --card-foreground: var(--text);
+  --popover: var(--bg2);
+  --popover-foreground: var(--text);
+  --primary: var(--accent2);
+  --primary-foreground: var(--bg1);
+  --secondary: oklch(1 0 0 / 5%);
+  --secondary-foreground: var(--text);
+  --muted: oklch(1 0 0 / 8%);
+  --muted-foreground: var(--muted-text);
+  --accent: oklch(1 0 0 / 8%);
+  --accent-foreground: var(--text);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0 0);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--accent2);
+}
+
+@layer base {
+  * { border-color: var(--border); box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--text);
+    background:
+      radial-gradient(900px 600px at 15% 20%, oklch(0.541 0.247 293 / 18%), transparent 55%),
+      radial-gradient(900px 600px at 85% 80%, oklch(0.797 0.134 211.5 / 12%), transparent 55%),
+      radial-gradient(700px 500px at 50% 110%, oklch(0.705 0.187 47.6 / 10%), transparent 60%),
+      linear-gradient(180deg, var(--bg1), var(--bg2));
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .mm-grain {
+    position: fixed; inset: 0; pointer-events: none; opacity: .12; z-index: 0; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  }
+  .mm-wrap {
+    min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+    padding: clamp(18px, 4vw, 30px); position: relative; z-index: 1;
+  }
+  .mm-card {
+    width: 100%; max-width: 1040px; border-radius: 28px;
+    background: linear-gradient(180deg, oklch(1 0 0 / 7%), oklch(1 0 0 / 4%));
+    border: 1px solid var(--line);
+    box-shadow: 0 40px 90px oklch(0 0 0 / 65%);
+    backdrop-filter: blur(12px); position: relative; overflow: hidden;
+    padding: clamp(22px, 4vw, 44px);
+  }
+  .mm-pulse {
+    position: absolute; inset: -40%; pointer-events: none; filter: blur(12px); z-index: 0;
+    background:
+      radial-gradient(circle at 50% 45%, oklch(0.541 0.247 293 / 22%), transparent 40%),
+      radial-gradient(circle at 55% 55%, oklch(0.797 0.134 211.5 / 14%), transparent 42%);
+    animation: mm-pulse 3.2s ease-in-out infinite;
+  }
+  .mm-content { position: relative; z-index: 2; }
+
+  .mm-heroTop { display: flex; align-items: stretch; justify-content: space-between; gap: 22px; margin-bottom: 18px; }
+  .mm-brandBlock { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .mm-brand { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; min-width: 0; text-decoration: none; }
+  .mm-logo {
+    height: 48px; width: auto; flex: 0 0 auto;
+    filter: drop-shadow(0 0 10px oklch(0.797 0.134 211.5 / 45%)) drop-shadow(0 0 18px oklch(0.541 0.247 293 / 35%));
+  }
+  .mm-title {
+    margin: 0; font-size: clamp(30px, 4vw, 44px); letter-spacing: 2px; text-transform: uppercase; font-weight: 800;
+    background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1.05; white-space: nowrap;
+  }
+  .mm-tagline { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted-text); }
+
+  .mm-audio {
+    flex: 0 0 var(--side-width); width: var(--side-width);
+    border: 1px solid var(--line); background: oklch(0 0 0 / 18%); border-radius: 20px;
+    padding: 14px 16px; display: flex; gap: 14px; align-self: stretch;
+  }
+  .mm-audioMain { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+  .mm-audioTitle {
+    font-size: 13px; letter-spacing: 1px; line-height: 1.2; margin-bottom: 10px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .mm-wave {
+    display: grid; grid-template-columns: repeat(24, 1fr); align-items: end; gap: 4px;
+    height: 16px; width: 100%; overflow: hidden; margin-bottom: 10px;
+  }
+  .mm-wave span {
+    width: 100%; height: 16px; border-radius: 999px;
+    background: linear-gradient(180deg, oklch(0.797 0.134 211.5 / 95%), oklch(0.541 0.247 293 / 90%));
+    transform-origin: bottom; transform: scaleY(.32); will-change: transform;
+    box-shadow: 0 0 8px oklch(0.541 0.247 293 / 16%);
+    animation: mm-wave 1.35s infinite ease-in-out;
+  }
+  .mm-bar {
+    height: 6px; border-radius: 999px; background: oklch(1 0 0 / 8%); border: 1px solid oklch(1 0 0 / 10%);
+    overflow: hidden; position: relative; width: 100%; margin-top: auto;
+  }
+  .mm-bar::after {
+    content: ""; position: absolute; inset: 0; width: 38%; border-radius: 999px;
+    background: linear-gradient(90deg, oklch(0.797 0.134 211.5 / 75%), oklch(0.541 0.247 293 / 75%));
+    box-shadow: 0 0 18px oklch(0.797 0.134 211.5 / 20%);
+  }
+  .mm-controls { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .mm-dotbtn {
+    width: 32px; height: 32px; border-radius: 999px; border: 1px solid oklch(1 0 0 / 14%);
+    background: oklch(1 0 0 / 6%); display: grid; place-items: center; color: var(--text);
+  }
+  .mm-dotbtn svg { width: 12px; height: 12px; opacity: .85; }
+
+  .mm-divider { margin: 14px 0 16px; height: 1px; background: linear-gradient(90deg, transparent, oklch(1 0 0 / 18%), transparent); }
+
+  .mm-grid { display: grid; grid-template-columns: 1fr var(--side-width); gap: 26px; align-items: start; }
+  .mm-contactGrid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; align-items: start; }
+  .mm-headline { margin: 0; font-size: clamp(22px, 3.4vw, 30px); line-height: 1.2; letter-spacing: .3px; font-weight: 700; }
+  .mm-lead { margin: 0; font-size: 16px; line-height: 1.75; color: oklch(1 0 0 / 88%); }
+  .mm-headline + .mm-lead { margin-top: 12px; }
+
+  .mm-panel { border: 1px solid var(--line); background: oklch(0 0 0 / 18%); border-radius: 18px; padding: 18px; }
+  .mm-panelTitle { margin: 0 0 12px; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted-text); }
+  .mm-links { display: flex; flex-direction: column; gap: 10px; }
+  .mm-btn {
+    text-decoration: none; color: var(--text); padding: 12px 14px; border-radius: 14px;
+    border: 1px solid var(--line); background: oklch(1 0 0 / 5%);
+    display: flex; align-items: center; justify-content: space-between; font-weight: 600;
+    transition: transform .15s ease, background .15s ease, border .15s ease;
+  }
+  .mm-btn small { color: var(--muted-text); font-weight: 400; letter-spacing: 1px; font-size: 11px; }
+  .mm-btn:hover { transform: translateY(-1px); background: oklch(1 0 0 / 8%); border-color: oklch(0.797 0.134 211.5 / 35%); }
+
+  .mm-contactItem {
+    display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 14px;
+    border: 1px solid var(--line); background: oklch(1 0 0 / 5%); margin-bottom: 10px;
+  }
+  .mm-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted-text); }
+  .mm-value { font-size: 16px; font-weight: 700; letter-spacing: .2px; word-break: break-word; }
+  .mm-value a { color: inherit; text-decoration: none; }
+  .mm-value a:hover { text-decoration: underline; }
+  .mm-note { margin-top: 12px; color: oklch(1 0 0 / 72%); font-size: 13px; line-height: 1.6; }
+
+  .mm-footer {
+    margin-top: 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    font-size: 12px; color: oklch(1 0 0 / 55%); letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  /* Promoted Artists */
+  .mm-backLink {
+    display: inline-block; margin-bottom: 14px; color: var(--muted-text); text-decoration: none;
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    transition: color .15s ease;
+  }
+  .mm-backLink:hover { color: var(--accent2); }
+
+  .mm-artistGrid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 20px;
+  }
+  .mm-artistCard {
+    display: flex; flex-direction: column; gap: 14px; text-decoration: none; color: var(--text);
+    border: 1px solid var(--line); background: oklch(0 0 0 / 18%); border-radius: 20px;
+    padding: 14px; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .mm-artistCard:hover {
+    transform: translateY(-4px);
+    border-color: oklch(0.797 0.134 211.5 / 45%);
+    box-shadow: 0 18px 44px oklch(0 0 0 / 45%), 0 0 24px oklch(0.541 0.247 293 / 18%);
+  }
+  .mm-artistPhoto {
+    border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 5; background: oklch(0 0 0 / 25%);
+  }
+  .mm-artistPhoto img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .35s ease;
+  }
+  .mm-artistCard:hover .mm-artistPhoto img { transform: scale(1.04); }
+  .mm-artistPhotoLight { background: oklch(0.97 0.01 95); }
+  .mm-artistPhotoLight img { object-fit: contain; }
+  .mm-artistName {
+    font-size: 18px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    text-align: center; padding-bottom: 4px;
+  }
+
+  .mm-profile { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 26px; align-items: center; margin-top: 8px; }
+  .mm-profilePhoto {
+    border-radius: 20px; overflow: hidden; border: 1px solid var(--line);
+    background: oklch(0 0 0 / 25%);
+    box-shadow: 0 24px 60px oklch(0 0 0 / 50%), 0 0 30px oklch(0.541 0.247 293 / 14%);
+  }
+  .mm-profilePhoto img { width: 100%; height: auto; display: block; }
+  .mm-profileName {
+    margin: 0 0 14px; font-size: clamp(26px, 3.6vw, 36px); letter-spacing: 2px; text-transform: uppercase; font-weight: 800;
+    background: linear-gradient(90deg, var(--accent2), var(--accent1), var(--accent3));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* Artist social media & streaming links */
+  .mm-social { margin-top: 24px; }
+  .mm-socialLabel {
+    margin: 0 0 12px; font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted-text);
+  }
+  .mm-socialList {
+    display: flex; flex-wrap: wrap; gap: 12px; list-style: none; margin: 0; padding: 0;
+  }
+  .mm-socialList li { display: flex; }
+  .mm-socialLink {
+    width: 46px; height: 46px; border-radius: 999px; display: grid; place-items: center;
+    color: var(--text); text-decoration: none;
+    border: 1px solid var(--line); background: oklch(1 0 0 / 5%);
+    transition: transform .18s ease, color .18s ease, background .18s ease,
+      border-color .18s ease, box-shadow .18s ease;
+  }
+  .mm-socialLink svg { width: 20px; height: 20px; display: block; }
+  .mm-socialLink:hover, .mm-socialLink:focus-visible {
+    transform: translateY(-3px); color: var(--accent2);
+    background: oklch(1 0 0 / 9%);
+    border-color: oklch(0.797 0.134 211.5 / 55%);
+    box-shadow:
+      0 0 16px oklch(0.797 0.134 211.5 / 40%),
+      0 0 32px oklch(0.541 0.247 293 / 26%),
+      0 12px 26px oklch(0 0 0 / 40%);
+  }
+  .mm-socialLink:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; }
+  .mm-socialLink:active { transform: translateY(-1px); }
+
+  @media (max-width: 860px) {
+    .mm-heroTop { flex-direction: column; }
+    .mm-audio { width: 100%; flex: 1 1 auto; }
+    .mm-grid, .mm-contactGrid { grid-template-columns: 1fr; }
+    .mm-title { white-space: normal; }
+    .mm-artistGrid, .mm-profile { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .mm-audio { padding: 12px; gap: 12px; }
+    .mm-controls { gap: 8px; }
+    .mm-dotbtn { width: 30px; height: 30px; }
+    .mm-wave { height: 14px; gap: 3px; }
+    .mm-wave span { height: 14px; }
+    .mm-audioTitle { white-space: normal; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mm-pulse, .mm-wave span { animation: none; }
+  }
+}
+
+@keyframes mm-pulse {
+  0%, 100% { transform: scale(1); opacity: .55; }
+  50% { transform: scale(1.06); opacity: .8; }
+}
+@keyframes mm-wave {
+  0%, 100% { transform: scaleY(.32); opacity: .5; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
