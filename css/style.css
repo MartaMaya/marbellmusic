@@ -299,24 +299,42 @@
   50% { transform: scaleY(1); opacity: 1; }
 }
 
-  /* About Us — unframed editorial copy and full-composition photograph. */
+  /* About Us — current editorial layout and uncropped photographs. */
   .mm-about { padding-top: 12px; }
-  .mm-aboutIntro, .mm-aboutCopy, .mm-aboutClosing { max-width: 720px; margin-inline: auto; }
+  .mm-aboutIntro, .mm-aboutCopy { max-width: 720px; margin-inline: auto; }
   .mm-aboutHeading { margin-bottom: 26px; font-size: 30px; letter-spacing: 0; }
   .mm-aboutCopy { font-size: 16px; line-height: 1.85; color: var(--text); }
   .mm-aboutCopy p { margin: 0; }
   .mm-aboutCopy p + p { margin-top: 24px; }
   .mm-aboutPhoto {
-    margin: 38px 0; overflow: hidden; border-radius: 8px;
+    margin: 44px auto; max-width: 720px; overflow: hidden; border-radius: 8px;
     border: 1px solid var(--line);
     box-shadow: 0 0 30px color-mix(in oklab, var(--accent1) 14%, transparent);
   }
   .mm-aboutPhoto img { display: block; width: 100%; height: auto; }
-  .mm-aboutProduction { padding-top: 6px; }
+  .mm-aboutProduction {
+    display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: clamp(28px, 4vw, 48px); align-items: center; padding-top: 6px;
+    max-width: 720px; margin-inline: auto;
+  }
+  .mm-aboutProduction .mm-aboutCopy { max-width: none; margin-inline: 0; }
+  .mm-aboutStudioPhoto {
+    overflow: hidden; border-radius: 8px; border: 1px solid var(--line);
+    box-shadow: 0 0 30px color-mix(in oklab, var(--accent2) 12%, transparent);
+  }
+  .mm-aboutStudioPhoto img { display: block; width: 100%; height: auto; }
   .mm-aboutClosing {
-    margin-top: 38px; margin-bottom: 30px; padding: 26px 0 0;
+    margin: 48px auto 30px; max-width: 720px; padding: 34px 0 0;
     border-top: 1px solid color-mix(in oklab, var(--accent2) 30%, transparent);
-    font-size: 21px; font-weight: 300; line-height: 1.7; letter-spacing: 0;
+    text-align: center;
+  }
+  .mm-aboutClosingKicker {
+    margin: 0; font-size: 12px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--muted-text);
+  }
+  .mm-aboutClosingStatement {
+    margin: 18px auto 0; max-width: 640px;
+    font-size: 20px; font-weight: 400; line-height: 1.55;
     color: var(--text);
   }
 
@@ -324,5 +342,7 @@
 @media (max-width: 560px) {
   .mm-aboutHeading { font-size: 26px; }
   .mm-aboutPhoto { margin-block: 28px; }
-  .mm-aboutClosing { font-size: 19px; margin-top: 28px; }
+  .mm-aboutProduction { grid-template-columns: 1fr; }
+  .mm-aboutClosing { margin-top: 34px; }
+  .mm-aboutClosingStatement { font-size: 14px; }
 }

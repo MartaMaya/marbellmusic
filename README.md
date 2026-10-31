@@ -25,7 +25,7 @@ in a new tab; phone and email links use the device's configured applications.
 - bartek-derylo.html and wolniej.html: Individual artist profiles
 - css/style.css: Plain CSS, including local font definitions and animations
 - js/script.js: Optional vanilla JavaScript entry point (no libraries)
-- assets/images: Artist images, optimized About Us photograph and favicon
+- assets/images: Artist images, both optimized About Us photographs and favicon
 - assets/fonts: Local Inter font files and font license
 - assets/audio: Reserved for real audio files (currently empty)
 
@@ -39,7 +39,9 @@ HTML audio player with vanilla JavaScript controls is the static alternative.
 No audio file or song URL has been invented.
 
 “The team” still has no destination or supplied page content and remains inactive.
-About Us now includes the supplied exact copy and full-composition photograph.
+About Us includes the current supplied copy and both uncropped photographs, with
+sections aligned to the introduction and the closing statement sized at 20px
+on desktop and 14px on phones.
 
 Old framework URLs such as /contact or /artists/bartek-derylo become
 contact.html or bartek-derylo.html. Internal navigation uses these portable
