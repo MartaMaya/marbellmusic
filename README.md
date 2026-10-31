@@ -1,7 +1,7 @@
 # Marbell Music — standalone static website
 
 Open index.html directly in a browser. No installation, build, framework,
-backend or connection to the Lovable application is required. All five pages,
+backend or connection to the Lovable application is required. All six pages,
 images, icons, fonts and CSS are included locally. External artist links open
 in a new tab; phone and email links use the device's configured applications.
 
@@ -20,10 +20,12 @@ in a new tab; phone and email links use the device's configured applications.
 - index.html: Home
 - contact.html: Contact
 - artists.html: Promoted Artists
+- about/index.html: About Us; GitHub Pages serves this directory at /about/
+- about.html: An equivalent directly openable About Us page
 - bartek-derylo.html and wolniej.html: Individual artist profiles
 - css/style.css: Plain CSS, including local font definitions and animations
 - js/script.js: Optional vanilla JavaScript entry point (no libraries)
-- assets/images: Original images and favicon
+- assets/images: Artist images, optimized About Us photograph and favicon
 - assets/fonts: Local Inter font files and font license
 - assets/audio: Reserved for real audio files (currently empty)
 
@@ -36,14 +38,18 @@ and animation. Actual playback needs a supplied, licensed audio file; a native
 HTML audio player with vanilla JavaScript controls is the static alternative.
 No audio file or song URL has been invented.
 
-“The team” and “About us” have no destinations or pages in the current site.
-They are preserved as inactive text, rather than inventing content or links.
-They can become ordinary HTML pages once their content is supplied.
+“The team” still has no destination or supplied page content and remains inactive.
+About Us now includes the supplied exact copy and full-composition photograph.
 
 Old framework URLs such as /contact or /artists/bartek-derylo become
 contact.html or bartek-derylo.html. Internal navigation uses these portable
 relative paths, supporting file://, custom domains and GitHub project subpaths.
 Update any bookmarks or external links to the old framework URLs.
+
+About Us additionally supports direct navigation and refresh at /about on the
+custom domain: GitHub Pages redirects that directory URL to /about/ and serves
+about/index.html. The homepage links directly to about/index.html so it also
+works when opened offline. No server rules or JavaScript redirects are needed.
 
 To change an artist's links, edit that artist's HTML file. Include only supplied
 platform URLs; omit missing platforms and omit the section if there are none.
