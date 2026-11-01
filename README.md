@@ -1,7 +1,7 @@
 # Marbell Music — standalone static website
 
 Open index.html directly in a browser. No installation, build, framework,
-backend or connection to the Lovable application is required. All six pages,
+backend or connection to the Lovable application is required. All eight pages,
 images, icons, fonts and CSS are included locally. External artist links open
 in a new tab; phone and email links use the device's configured applications.
 
@@ -23,6 +23,8 @@ in a new tab; phone and email links use the device's configured applications.
 - about/index.html: About Us; GitHub Pages serves this directory at /about/
 - about.html: An equivalent directly openable About Us page
 - bartek-derylo.html and wolniej.html: Individual artist profiles
+- founder.html: Founder page (Marta Białka), linked from the homepage as "Founder"
+- connect/index.html: Business card QR redirect; GitHub Pages serves it at /connect/
 - css/style.css: Plain CSS, including local font definitions and animations
 - js/script.js: Optional vanilla JavaScript entry point (no libraries)
 - assets/images: Artist images, both optimized About Us photographs and favicon
@@ -56,5 +58,20 @@ works when opened offline. No server rules or JavaScript redirects are needed.
 To change an artist's links, edit that artist's HTML file. Include only supplied
 platform URLs; omit missing platforms and omit the section if there are none.
 Keep target="_blank", rel="noopener noreferrer" and artist-specific labels.
+
+## Business card QR redirect (/connect)
+
+connect/index.html is the page behind https://marbellmusic.com/connect, the URL
+printed on the business cards. It immediately forwards visitors to a
+configurable destination and shows a clickable Continue link as a fallback.
+
+To change the destination later, edit connect/index.html and update the two
+marked spots near the top and bottom of the file:
+1. the meta refresh url in <head> (currently url=../founder.html)
+2. the CONNECT_DESTINATION value in the <script> at the bottom
+
+Use relative paths: ../founder.html (Founder), ../about/index.html (About Us)
+or ../index.html (Homepage). No server, database or build step is involved,
+so the printed QR code never needs to change.
 
 The existing React/TypeScript application has not been modified or deleted.

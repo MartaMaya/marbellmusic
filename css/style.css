@@ -346,3 +346,39 @@
   .mm-aboutClosing { margin-top: 34px; }
   .mm-aboutClosingStatement { font-size: 14px; }
 }
+
+/* Founder — two-column editorial layout: portrait left, biography right. */
+.mm-founder {
+  display: grid; padding-top: 12px;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  grid-template-areas: "photo head" "photo bio";
+  gap: clamp(20px, 3vw, 36px) clamp(28px, 4vw, 52px);
+  align-items: start;
+}
+.mm-founderHead { grid-area: head; }
+.mm-founderName { margin: 0; font-size: 30px; letter-spacing: 0; }
+.mm-founderRole {
+  margin: 10px 0 0; font-size: 13px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent1);
+}
+.mm-founderTagline {
+  margin: 14px 0 0; font-size: 16px; font-style: italic; color: var(--muted-text);
+}
+.mm-founderPhoto {
+  grid-area: photo; overflow: hidden; border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: 0 0 30px color-mix(in oklab, var(--accent1) 14%, transparent);
+}
+.mm-founderPhoto img { display: block; width: 100%; height: auto; }
+.mm-founderBio { grid-area: bio; font-size: 16px; line-height: 1.85; color: var(--text); }
+.mm-founderBio p { margin: 0; }
+.mm-founderBio p + p { margin-top: 24px; }
+.mm-founderBio .mm-social { margin-top: 30px; }
+
+@media (max-width: 860px) {
+  .mm-founder {
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "bio";
+  }
+  .mm-founderPhoto { max-width: 420px; }
+}
