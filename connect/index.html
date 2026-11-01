@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marbell Music — Connect</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- ============================================================
+       BUSINESS CARD QR REDIRECT — CONFIGURATION
+       This page is what https://marbellmusic.com/connect loads.
+       To change where the QR code sends people, edit the single
+       CONNECT_DESTINATION value in the <script> below AND the
+       meta refresh url above. Use relative paths, for example:
+         ../founder.html       Founder page
+         ../about/index.html   About Us page
+         ../index.html         Homepage
+       No server, database or build step is needed.
+       ============================================================ -->
+  <meta http-equiv="refresh" content="0; url=../founder.html">
+</head>
+<body>
+  <div class="mm-grain"></div>
+  <div class="mm-wrap">
+    <main class="mm-card">
+      <div class="mm-pulse"></div>
+      <div class="mm-content">
+        <section class="mm-heroTop">
+          <div class="mm-brandBlock">
+            <a href="../index.html" class="mm-brand">
+              <img class="mm-logo" src="../assets/images/marbell_logo_neon.png" alt="Marbell logo">
+              <h1 class="mm-title">Marbell Music</h1>
+            </a>
+          </div>
+        </section>
+        <div class="mm-divider"></div>
+        <p class="mm-lead">Taking you to Marbell Music…</p>
+        <p><a class="mm-btn" id="connectFallback" href="../founder.html">Continue</a></p>
+        <footer class="mm-footer">
+          <div>© 2026 Marbell Music</div>
+          <div>Sound • Light • Story</div>
+        </footer>
+      </div>
+    </main>
+  </div>
+  <script>
+    // Business card QR redirect destination — change this one value
+    // (and the meta refresh url in <head> above) to retarget the QR code.
+    var CONNECT_DESTINATION = "../founder.html";
+    if (CONNECT_DESTINATION.indexOf("connect") === -1) {
+      window.location.replace(CONNECT_DESTINATION);
+    }
+  </script>
+</body>
+</html>
